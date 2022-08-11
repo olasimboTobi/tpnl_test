@@ -75,15 +75,15 @@ useEffect(()=> {
 },[])
 
 
-const elementUser =users.map(user => (
-  <ul key={user.user_id}>
-    <li>{user.firstname}</li>
-    <li>{user.email}</li>
+// const elementUser =users.map(user => (
+//   <ul key={user.user_id}>
+//     <li>{user.firstname}</li>
+//     <li>{user.email}</li>
    
-  </ul>
-))
-const elementUserDetails =userDetails.map(user => (
-  <ul key={user.user_id}>
+//   </ul>
+// ))
+const elementUserDetails =users.map(user => (
+  <ul key={user.user_id} onClick = {()=>fetchId(user.user_id)}>
     <li onClick = {()=>fetchId(user.user_id)}>{user.firstname} {user.lastname}</li>
     <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
     <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
@@ -92,32 +92,32 @@ const elementUserDetails =userDetails.map(user => (
     <li onClick = {()=>fetchId(user.user_id)}>{user.phone_no}</li>
   </ul>
 ))
-const elementVehicleDetails =vehicleDetails.map(user => (
-  <ul key={user.user_id}>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
-  </ul>
-))
+// const elementVehicleDetails =vehicleDetails.map(user => (
+//   <ul key={user.user_id}>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
+//   </ul>
+// ))
 
-const elementVehicleCount =vehicleCount.map(user => (
-  <ul key={user.user_id}>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
-  </ul>
-))
+// const elementVehicleCount =vehicleCount.map(user => (
+//   <ul key={user.user_id}>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
+//   </ul>
+// ))
 
-const elementRelatedPictures =relatedPictures.map(user => (
-  <ul key={user.user_id}>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
-  </ul>
-))
-const elementRelatedPicturesCount =relatedPicturesCount.map(user => (
-  <ul key={user.user_id}>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.picture_count}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
-  </ul>
-))
+// const elementRelatedPictures =relatedPictures.map(user => (
+//   <ul key={user.user_id}>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
+//   </ul>
+// ))
+// const elementRelatedPicturesCount =relatedPicturesCount.map(user => (
+//   <ul key={user.user_id}>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.picture_count}</li>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
+//   </ul>
+// ))
 
 
 
@@ -127,7 +127,7 @@ const elementRelatedPicturesCount =relatedPicturesCount.map(user => (
   
   return (
     <div className="App">
-        {elementUser} 
+        {/* {elementUser}  */}
         {elementUserDetails}
     </div>
   );
