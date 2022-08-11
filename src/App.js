@@ -4,20 +4,20 @@ import axios from 'axios'
 
 
 
-// const objFlat = (object1) => {
-//   const objects = []
-//   object.key(object1).map(objKey => {
+const objFlat = (...object1) => {
+  const objects = []
+  Object.keys(object1).map(objKey => {
     
-//     let value = object1[objKey]
-//     if(typeof value != object){
-//       objects.push(value)
-//     }else{
-//       objects= [...objects, ...objFlat(value)]
-//     }
-// })
-
-//   return objects
-// }
+    let value = object1[objKey]
+    if(typeof value != Object){
+      objects.push(value)
+    }else{
+      objects= [...objects, ...objFlat(value)]
+    }
+})
+  console.log(objects)
+  return objects
+}
 
 function App() {
   const [users, setUsers] = useState([])
@@ -27,24 +27,32 @@ function App() {
   const [relatedPictures, setRelatedPictures] = useState([])
   const [relatedPicturesCount, setRelatedPicturesCount] = useState([])
 
-  const fetchId = (id) => {
-    axios.get("https://interviewtst.herokuapp.com/get-selected-user-details/:id )")
+  const fetchId = (id=2) => {
+    axios.get(`https://interviewtst.herokuapp.com/get-selected-user-details/:${id} )`)
     .then(response => {
-      console.log( response.data)
+      console.log(response)
       
       const {Related_Pictures, Related_Pictures_Count,User_Details, Vehicles_Count,Vehicles_Details}= response.data
       return {Related_Pictures, Related_Pictures_Count,User_Details, Vehicles_Count,Vehicles_Details}
-    }).then(({Related_Pictures, Related_Pictures_Count,User_Details, Vehicles_Count,Vehicles_Details})=> {
-      setUserDetails(User_Details)
-      setVehicleDetails(Vehicles_Details)
-      setVehicleCount(Vehicles_Count)
-      setRelatedPictures(Related_Pictures)
-      setRelatedPicturesCount(Related_Pictures_Count)
-    }
-      ).catch(err => {
+    })
+    .then(({Related_Pictures, Related_Pictures_Count,User_Details, Vehicles_Count,Vehicles_Details})=> {
+      const newArr = objFlat(Related_Pictures, Related_Pictures_Count,User_Details, Vehicles_Count,Vehicles_Details)
+      console.log(`tobi ${newArr}`)
+      
+    })
+    .catch(err => {
       console.error(err)
     })
   }
+  
+    // then(({Related_Pictures, Related_Pictures_Count,User_Details, Vehicles_Count,Vehicles_Details})=> {
+    //   setUserDetails(User_Details)
+    //   setVehicleDetails(Vehicles_Details)
+    //   setVehicleCount(Vehicles_Count)
+    //   setRelatedPictures(Related_Pictures)
+    //   setRelatedPicturesCount(Related_Pictures_Count)
+    // })
+   
 
 
   
@@ -69,29 +77,44 @@ useEffect(()=> {
         })
 
 
+
+      // axios.get("https://interviewtst.herokuapp.com/get-all-users")
+      //   .then(response => {
+      //     // console.log(response)
+      //     const {Related_Pictures_Count} = response.data
+      //     console.log(Related_Pictures_Count)
+          
+      //   }).catch(err => {
+      //     console.error(err)
+      //   })
+
+
      
         
     
 },[])
 
 
-// const elementUser =users.map(user => (
-//   <ul key={user.user_id}>
-//     <li>{user.firstname}</li>
-//     <li>{user.email}</li>
+const elementUser =users.map(user => (
+  <ul key={user.user_id}>
+    <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
+    <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
    
-//   </ul>
-// ))
-const elementUserDetails =users.map(user => (
-  <ul key={user.user_id} onClick = {()=>fetchId(user.user_id)}>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.firstname} {user.lastname}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.job_area}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.job_title}</li>
-    <li onClick = {()=>fetchId(user.user_id)}>{user.phone_no}</li>
   </ul>
 ))
+
+
+// const elementUserDetails =users.map(user => (
+//   <ul key={user.user_id} onClick = {()=>fetchId(user.user_id)}>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.firstname} {user.lastname}</li>
+//     <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
+    {/* <li onClick = {()=>fetchId(user.user_id)}>{user.email}</li>
+    <li onClick = {()=>fetchId(user.user_id)}>{user.job_area}</li>
+    <li onClick = {()=>fetchId(user.user_id)}>{user.job_title}</li>
+    <li onClick = {()=>fetchId(user.user_id)}>{user.phone_no}</li> */}
+  // </ul>
+// ))
+
 // const elementVehicleDetails =vehicleDetails.map(user => (
 //   <ul key={user.user_id}>
 //     <li onClick = {()=>fetchId(user.user_id)}>{user.firstname}</li>
@@ -127,8 +150,8 @@ const elementUserDetails =users.map(user => (
   
   return (
     <div className="App">
-        {/* {elementUser}  */}
-        {elementUserDetails}
+        {elementUser} 
+        {/* {elementUserDetails} */}
     </div>
   );
 }
